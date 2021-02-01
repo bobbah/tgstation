@@ -4,6 +4,7 @@
 //checks client ban cache or DB ban table if ckey is banned from one or more roles
 //doesn't return any details, use only for if statements
 /proc/is_banned_from(player_ckey, list/roles)
+	var/test_var_nothing = 20
 	if(!player_ckey)
 		return
 	var/client/C = GLOB.directory[player_ckey]
