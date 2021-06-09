@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, ColorBox, Flex, Stack, Icon, Input, LabeledList, Section, Table, Divider } from '../components';
+import { Box, Button, ColorBox, Flex, Stack, Icon, Input, Image, LabeledList, Section, Table, Divider } from '../components';
 import { Window } from '../layouts';
 
 type ColorEntry = {
@@ -206,7 +206,7 @@ const PreviewDisplay = (props, context) => {
             data.sprites?.finished
               ? (
                 <Table.Cell>
-                  <Box as="img" src={data.sprites.finished} m={0} width="75%" mx="10%" />
+                  <Image src={data.sprites.finished} m={0} width={"75%"} mx={"10%"} pixelated />
                 </Table.Cell>
               )
               : (
@@ -264,8 +264,7 @@ const SingleSprite = (props) => {
     source,
   } = props;
   return (
-    <Box
-      as="img"
+    <Image
       src={source}
       width="100%"
     />

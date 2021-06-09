@@ -130,7 +130,7 @@ const mapColorPropTo = attrName => (style, value) => {
   }
 };
 
-const styleMapperByPropName = {
+export const styleMapperByPropName = {
   // Direct mapping
   position: mapRawPropTo('position'),
   overflow: mapRawPropTo('overflow'),
@@ -209,7 +209,7 @@ const styleMapperByPropName = {
   },
 };
 
-export const computeBoxProps = (props: BoxProps) => {
+export const computeBoxProps = (props: BoxProps, styleMapper = styleMapperByPropName) => {
   const computedProps: HTMLAttributes<any> = {};
   const computedStyles = {};
   // Compute props
@@ -223,7 +223,7 @@ export const computeBoxProps = (props: BoxProps) => {
       continue;
     }
     const propValue = props[propName];
-    const mapPropToStyle = styleMapperByPropName[propName];
+    const mapPropToStyle = styleMapper[propName];
     if (mapPropToStyle) {
       mapPropToStyle(computedStyles, propValue);
     }

@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { BlockQuote, Box, Button, Dimmer, Icon, LabeledList, Modal, ProgressBar, Section, Stack } from '../components';
+import { BlockQuote, Box, Button, Dimmer, Icon, Image, LabeledList, Modal, ProgressBar, Section, Stack } from '../components';
 import { Window } from '../layouts';
 import { resolveAsset } from '../assets';
 import { formatTime } from '../format';
@@ -142,7 +142,7 @@ const SignalLostModal = (props, context) => {
       height={22}
       p={0}
       style={{ "border-radius": "5%" }}>
-      <img src={nt_logo} width={64} height={64} />
+      <Image src={nt_logo} width="64px" height="64px" />
       <Box
         backgroundColor="black"
         textColor="red"
@@ -708,12 +708,10 @@ const EventScreen = (props, context) => {
         <Stack.Item>
           <Stack fill>
             <Stack.Item>
-              <img src={resolveAsset(event.image)}
+              <Image src={resolveAsset(event.image)}
                 height="125px"
                 width="250px"
-                style={{
-                  '-ms-interpolation-mode': 'nearest-neighbor',
-                }} />
+                pixelated />
             </Stack.Item>
             <Stack.Item >
               <BlockQuote preserveWhitespace>
@@ -772,13 +770,11 @@ export const AdventureScreen = (props: AdventureScreenProps, context) => {
         </Stack.Item>
         <Stack.Divider />
         <Stack.Item>
-          <img
+          <Image
             src={imgSource}
             height="100px"
             width="200px"
-            style={{
-              '-ms-interpolation-mode': 'nearest-neighbor',
-            }} />
+            pixelated />
           <Stack vertical>
             <Stack.Divider />
             <Stack.Item grow />

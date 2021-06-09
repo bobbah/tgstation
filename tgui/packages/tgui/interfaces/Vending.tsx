@@ -1,6 +1,6 @@
 import { classes } from 'common/react';
 import { useBackend } from '../backend';
-import { Box, Button, Section, Table } from '../components';
+import { Box, Button, Section, Table, Image } from '../components';
 import { Window } from '../layouts';
 
 type VendingData = {
@@ -90,14 +90,14 @@ const VendingRow = (props, context) => {
     <Table.Row>
       <Table.Cell collapsing>
         {product.base64 && (
-          <img
+          <Image
             src={`data:image/jpeg;base64,${product.img}`}
             style={{
               'vertical-align': 'middle',
               'horizontal-align': 'middle',
             }} />
         ) || (
-          <span
+          <Image
             className={classes([
               'vending32x32',
               product.path,

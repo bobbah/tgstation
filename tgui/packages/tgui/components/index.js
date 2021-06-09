@@ -20,6 +20,7 @@ export { Dropdown } from './Dropdown';
 export { Flex } from './Flex';
 export { Grid } from './Grid';
 export { Icon } from './Icon';
+export { Image } from './Image';
 export { InfinitePlane } from './InfinitePlane';
 export { Input } from './Input';
 export { Knob } from './Knob';
