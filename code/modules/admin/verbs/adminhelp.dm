@@ -452,6 +452,31 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 	usr << browse(dat.Join(), "window=ahelp[id];size=620x480")
 
+/datum/admin_help/ui_state(mob/user)
+	return GLOB.admin_state
+
+/datum/admin_help/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if (!ui)
+		ui = new(user, src, "Adminhelp")
+		ui.open()
+
+/datum/admin_help/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if (..())
+		return
+
+/datum/admin_help/ui_data(mob/user)
+	. = list(
+		"id" = id,
+		"state" = state,
+		"opened_at" = gameTimestamp(wtime = opened_at),
+		"last_event" = DisplayTimeText(world.time - (closed_at ? closed_at : opened_at)),
+		"disconnected" = !initiator,
+		"interactions" = _interactions
+	)
+	if (closed_at)
+		.["closed_at"] = gameTimestamp(wtime = closed_at)
+
 /**
  * Renders the current status of the ticket into a displayable string
  */
@@ -483,6 +508,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	switch(action)
 		if("ticket")
 			TicketPanel()
+			ui_interact(usr)
 		if("retitle")
 			Retitle()
 		if("reject")
