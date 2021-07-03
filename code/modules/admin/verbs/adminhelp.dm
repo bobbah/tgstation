@@ -177,6 +177,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	var/heard_by_no_admins = FALSE
 	/// The collection of interactions with this ticket. Use AddInteraction() or, preferably, admin_ticket_log()
 	var/list/_interactions
+	/// Users currently responding to this ahelp (who have an adminpm dialogue open)
+	var/list/responding = list()
 	/// Statclick holder for the ticket
 	var/obj/effect/statclick/ahelp/statclick
 	/// Static counter used for generating each ticket ID
@@ -468,14 +470,27 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 /datum/admin_help/ui_data(mob/user)
 	. = list(
 		"id" = id,
+		"name" = name,
 		"state" = state,
 		"opened_at" = gameTimestamp(wtime = opened_at),
-		"last_event" = DisplayTimeText(world.time - (closed_at ? closed_at : opened_at)),
+		"opened_age" = DisplayTimeText(world.time - opened_at),
+		"closed_age" = closed_at ? DisplayTimeText(world.time - closed_at) : null,
 		"disconnected" = !initiator,
 		"interactions" = _interactions
 	)
 	if (closed_at)
 		.["closed_at"] = gameTimestamp(wtime = closed_at)
+	if (responding)
+		.["responding"] = list()
+		for (var/client/responder in responding)
+			.["responding"] += list(list("key" = responder.key))
+	var/list/related_tickets = GLOB.ahelp_tickets.TicketsByCKey(initiator_ckey)
+	if (related_tickets.len > 1)
+		.["related_tickets"] = list()
+		for (var/datum/admin_help/related_ticket as anything in related_tickets)
+			if (related_ticket.id == id)
+				continue
+			.["related_tickets"] += list(list("id" = related_ticket.id, "status" = related_ticket.state, "name" = related_ticket.name))
 
 /**
  * Renders the current status of the ticket into a displayable string
