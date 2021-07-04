@@ -12,7 +12,7 @@ const mapState = (state) => {
     case 3:
       return 'RESOLVED';
     default:
-      return 'ERROR, CONTACT CODER';
+      return 'ERROR, CONTACT CODERS';
   }
 };
 
